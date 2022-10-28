@@ -5,7 +5,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<!-- add font -->
 		<link
 			href="https://fonts.googleapis.com/css?family=Poppins"
 			rel="stylesheet"
@@ -13,12 +12,13 @@
 		<link rel="icon" type="image/x-icon" href="./img/user.png" />
 		<!-- add stylesheet -->
 		<link rel="stylesheet" type="text/css" href="./styles/styles.css" />
-		<title id="title">Student Registration - FOS</title>
+
+		<title>Student Registration - FOS</title>
 	</head>
 	<body onload="check_logged_user()">
 		<img src="./img/dots_left.png" alt="dot-set" class="dot-img-top-left" />
 		<img src="./img/dots_right.png" alt="dot-set" class="dot-img-top-right" />
-		<!-- middle container -->
+
 		<div class="container">
 			<img src="./img/dots_circle.png" alt="dot-circle" class="dot-img-top" />
 			<img
@@ -29,19 +29,43 @@
 			<div class="header-flex">
 				<img src="./img/logo.png" alt="logo" />
 				<div class="header-section">
-					<p class="header-title">Student Registration</p>
+					<p class="header-title">Student Registration - FOS</p>
 					<p class="sub-header">Faculty of Science</p>
 
 					<p class="sub-header">University of Peradeniya</p>
 				</div>
 			</div>
-			<br />
 
-			<!-- form -->
 			<form action="" method="post" class="form-section">
 				<p class="form-title">Register Your Account</p>
 				<p id="invalid"></p>
 				<!-- name -->
+				<div class="input-section">
+					<label class="label" for="name">First Name</label>
+					<input
+						required
+						class="input-field"
+						type="text"
+						id="first_name"
+						name="first_name"
+						placeholder="Enter First Name"
+					/>
+					<p class="error" id="error-first_name"></p>
+				</div>
+
+				<div class="input-section">
+					<label class="label" for="name">Last Name</label>
+					<input
+						required
+						class="input-field"
+						type="text"
+						id="last_name"
+						name="last_name"
+						placeholder="Enter Last Name"
+					/>
+					<p class="error" id="error-last_name"></p>
+				</div>
+
 				<div class="input-section">
 					<label class="label" for="name"
 						>Username (Enter your University Registration Number SXXXXX)</label
@@ -56,6 +80,7 @@
 					/>
 					<p class="error" id="error-user_name"></p>
 				</div>
+
 				<div class="input-section">
 					<label class="label" for="name">Password</label>
 					<input
@@ -69,17 +94,32 @@
 					<p class="error" id="error-password"></p>
 				</div>
 
+				<div class="input-section">
+					<label class="label" for="name">Confirm Password</label>
+					<input
+						required
+						class="input-field"
+						type="password"
+						id="confirm_password"
+						name="confirm_password"
+						placeholder="Confirm Password"
+					/>
+					<p class="error" id="error-confirm_password"></p>
+				</div>
+
 				<!-- button section -->
 				<div class="btn-group">
-					<input type="submit" value="Submit" class="btn submit" id="submit" />
-					<p>
-						Don't you have an account?
-						<a href="register.html">Register </a>
-					</p>
+					<input
+						type="submit"
+						value="Register"
+						class="btn submit"
+						name="register"
+						id="register"
+					/>
+					<p>Already have an account ? <a href="index.html">Login</a></p>
 				</div>
 			</form>
 		</div>
 	</body>
-
-	<script type="text/javascript" src="./scripts/login.js"></script>
+	<script type="text/javascript" src="./scripts/register.js"></script>
 </html>
