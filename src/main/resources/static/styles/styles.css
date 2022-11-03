@@ -7,7 +7,9 @@
     --success: #1cacef;
     --border-radius: 50px;
     --border-color: rgba(209, 207, 207, 0.712);
-    --bottom-border: #3091c9a2;
+    /* --bottom-border: #3091c9a2/; */
+    --bottom-border: #d85374;
+
 }
 
 
@@ -111,6 +113,10 @@ body {
     margin-bottom: 30px;
     margin-top: 20px;
     border-bottom: 2px solid var(--bottom-border);
+}
+
+#invalid {
+    color: var(--warning);
 }
 
 .title-comb {

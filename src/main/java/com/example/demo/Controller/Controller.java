@@ -19,20 +19,25 @@ import com.example.demo.User.UserService;
 @CrossOrigin
 public class Controller {
     @Autowired
-    private UserService user_services;
+    private UserService userServices;
+
+    @GetMapping("/get")
+    public String returnUser() {
+        return "Hello";
+    }
 
     @PostMapping("/addUser")
     public boolean addUser(@RequestBody User userdata) throws NoSuchAlgorithmException {
-        return user_services.addUser(userdata);
+        return userServices.registerUser(userdata);
     }
 
     @PostMapping("/login")
     public User login(@RequestBody User user) throws NoSuchAlgorithmException {
-        return user_services.login(user);
+        return userServices.loginUser(user);
     }
 
     @GetMapping("/all")
     public List<User> all() {
-        return user_services.all();
+        return userServices.getAll();
     }
 }

@@ -14,12 +14,12 @@ public class UserServicesImplementation implements UserService {
     private UserRepository repo;
 
     @Override
-    public boolean addUser(User userdata) throws NoSuchAlgorithmException {
+    public boolean registerUser(User userdata) throws NoSuchAlgorithmException {
         if (repo.CheckUserName(userdata.getUser_name()) == null) {
             MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] pwDigest = md.digest(userdata.getPassword().getBytes());
+            byte[] pwdDigest = md.digest(userdata.getPassword().getBytes());
 
-            BigInteger hashed = new BigInteger(1, pwDigest);
+            BigInteger hashed = new BigInteger(1, pwdDigest);
             String hashedPW = hashed.toString(16);
 
             userdata.setPassword(hashedPW);
@@ -32,11 +32,11 @@ public class UserServicesImplementation implements UserService {
     }
 
     @Override
-    public User login(User user) throws NoSuchAlgorithmException {
+    public User loginUser(User user) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] pwDigest = md.digest(user.getPassword().getBytes());
+        byte[] pwdDigest = md.digest(user.getPassword().getBytes());
 
-        BigInteger hashed = new BigInteger(1, pwDigest);
+        BigInteger hashed = new BigInteger(1, pwdDigest);
         String hashedPW = hashed.toString(16);
 
         User logged_user = repo.CheckUser(user.getUser_name(), hashedPW);
@@ -51,7 +51,7 @@ public class UserServicesImplementation implements UserService {
     }
 
     @Override
-    public List<User> all() {
+    public List<User> getAll() {
         return repo.findAll();
     }
 

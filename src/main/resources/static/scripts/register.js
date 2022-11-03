@@ -1,5 +1,4 @@
-//check if user already logged
-const loggedUser = localStorage.getItem('user_id');
+const loggedUser = localStorage.getItem('user');
 
 function check_logged_user() {
 	if (loggedUser) {
@@ -7,13 +6,6 @@ function check_logged_user() {
 	}
 }
 
-let require_fields = [
-	'first_name',
-	'last_name',
-	'user_name',
-	'password',
-	'confirm_password',
-];
 let user = {
 	first_name: '',
 	last_name: '',
@@ -22,14 +14,14 @@ let user = {
 	confirm_password: '',
 };
 
-// this function is used to print errors
-function showError(id, msg) {
+// show errors
+function showErrorMsg(id, msg) {
 	let err_msg = document.getElementById(id);
 	msg = msg.replaceAll('_', ' ').toUpperCase();
 	err_msg.innerHTML = msg;
 }
 
-//check only numbers
+// check only numbers
 function onlyNumber(str) {
 	for (let i = 0; i < str.length; i++) {
 		if (Number.isInteger(parseInt(str.charAt(i))) == false) {
@@ -39,7 +31,7 @@ function onlyNumber(str) {
 	return true;
 }
 
-//check if char in string is a number
+// check if char in string is a number
 function isNumber(character) {
 	if (typeof character !== 'string') {
 		return false;
@@ -50,17 +42,11 @@ function isNumber(character) {
 	return !isNaN(character);
 }
 
-//this unction is used to get data from form to student object
-function loadData() {
+// get form data
+function getFormData() {
 	user.first_name = document.getElementById('first_name').value;
-	user.first_name =
-		user.first_name.charAt(0).toUpperCase() +
-		user.first_name.slice(1).toLowerCase();
 
 	user.last_name = document.getElementById('last_name').value;
-	user.last_name =
-		user.last_name.charAt(0).toUpperCase() +
-		user.last_name.slice(1).toLowerCase();
 
 	user.user_name = document.getElementById('user_name').value.toUpperCase();
 	user.password = document.getElementById('password').value;
@@ -69,28 +55,28 @@ function loadData() {
 	console.log(user);
 }
 
-//this function is used to check whether the fields are already filled
+// check fields
 function checkFields(user) {
-	let r = true;
+	let valid = true;
 
 	for (const key in user) {
 		if (user[key] == '') {
-			r = false;
-			showError('error-' + key, key + ' is required.');
+			valid = false;
+			showErrorMsg('error-' + key, key + ' is required.');
 		} else {
 			if (key == 'user_name') {
 				if (user[key].length != 6 || !onlyNumber(user[key].substr(1))) {
-					r = false;
-					showError('error-' + key, 'Invalid user name');
+					valid = false;
+					showErrorMsg('error-' + key, 'Invalid user name');
 				} else {
-					showError('error-' + key, '');
+					showErrorMsg('error-' + key, '');
 				}
 			} else if (key == 'password' || key == 'confirm_password') {
 				if (user[key].length != 8) {
-					r = false;
-					showError('error-' + key, key + ' must contain 8 characters');
+					valid = false;
+					showErrorMsg('error-' + key, key + ' must contain 8 characters');
 				} else {
-					//check uppercase letter
+					// check uppercase letter
 					let uppercaseLetter = false;
 
 					for (i = 0; i < 8; i++) {
@@ -105,8 +91,8 @@ function checkFields(user) {
 					}
 					// console.log(uppercaseLetter)
 					if (uppercaseLetter == false) {
-						r = false;
-						showError(
+						valid = false;
+						showErrorMsg(
 							'error-' + key,
 							key + ' must have at least one uppercase letter'
 						);
@@ -122,43 +108,45 @@ function checkFields(user) {
 						}
 						// console.log(num)
 						if (num == false) {
-							r = false;
-							showError('error-' + key, key + ' must have at least one number');
+							valid = false;
+							showErrorMsg(
+								'error-' + key,
+								key + ' must have at least one number'
+							);
 						} else {
-							showError('error-' + key, '');
+							showErrorMsg('error-' + key, '');
 						}
 					}
 				}
 			} else {
-				showError('error-' + key, '');
+				showErrorMsg('error-' + key, '');
 			}
 		}
 	}
 
 	if (
-		r == true &&
+		valid == true &&
 		user['password'].localeCompare(user['confirm_password']) != 0
 	) {
-		showError('error-password', 'passwords are not matched');
-		showError('error-confirm_password', 'passwords are not matched');
-		r = false;
+		showErrorMsg('error-password', 'passwords are not matched');
+		showErrorMsg('error-confirm_password', 'passwords are not matched');
+		valid = false;
 	}
 
-	return r;
+	return valid;
 }
 
-//signup process
 document.getElementById('register').addEventListener('click', function (e) {
 	e.preventDefault();
 	document.getElementById('invalid').innerHTML = '';
-	loadData();
+	getFormData();
 
 	// console.log(user);
 
-	let r1 = checkFields(user);
+	let validate = checkFields(user);
 
-	// r1=false;
-	if (r1) {
+	// validate=false;
+	if (validate) {
 		const timeout = setTimeout(function logeed() {
 			fetch('http://localhost:8080/addUser', {
 				method: 'POST',
@@ -173,7 +161,7 @@ document.getElementById('register').addEventListener('click', function (e) {
 				.then((data) => {
 					console.log(data);
 					if (data) {
-						localStorage.setItem('user_id', data.id);
+						localStorage.setItem('user', data.id);
 						window.location.href = 'home.html';
 					} else {
 						document.getElementById('invalid').innerHTML =

@@ -14,7 +14,7 @@
 		<link rel="stylesheet" type="text/css" href="./styles/styles.css" />
 		<title>Home Page</title>
 	</head>
-	<body>
+	<body onload="check_logged_user()">
 		<img src="./img/dots_left.png" alt="dot-set" class="dot-img-top-left" />
 		<img src="./img/dots_right.png" alt="dot-set" class="dot-img-top-right" />
 
@@ -37,7 +37,13 @@
 
 			<p class="form-title">You have successfully logged in</p>
 
-			<button type="submit" name="logout" id="logout">Log Out</button>
+			<input
+				type="submit"
+				value="Logout"
+				class="btn reset"
+				name="logout"
+				id="logout"
+			/>
 		</div>
 	</body>
 

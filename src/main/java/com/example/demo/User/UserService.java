@@ -4,11 +4,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public interface UserService {
+    boolean registerUser(User userdata) throws NoSuchAlgorithmException;
 
-    boolean addUser(User userdata) throws NoSuchAlgorithmException;
+    User loginUser(User user) throws NoSuchAlgorithmException;
 
-    User login(User user) throws NoSuchAlgorithmException;
-
-    List<User> all();
-
+    List<User> getAll();
 }
